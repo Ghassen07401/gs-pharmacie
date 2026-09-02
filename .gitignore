@@ -1,0 +1,16 @@
+# Fichiers de configuration locale
+config/config.local.php
+
+# Uploads utilisateur
+public/assets/uploads/*
+!public/assets/uploads/.gitkeep
+
+# Fichiers systeme
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Configuration locale de l outil de developpement
+.claude/

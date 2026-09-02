@@ -1,0 +1,796 @@
+/* ==========================================================
+   Systeme de Gestion de Pharmacie - Feuille de style principale
+   ========================================================== */
+
+:root {
+    --color-primary: #0f7a6a;
+    --color-primary-dark: #0b5c50;
+    --color-accent: #2f8fd6;
+    --color-danger: #d1453b;
+    --color-warning: #e0a020;
+    --color-success: #2f9e5c;
+    --color-bg: #f4f7f6;
+    --color-surface: #ffffff;
+    --color-border: #e1e6e5;
+    --color-text: #253131;
+    --color-text-muted: #667070;
+    --radius: 10px;
+    --shadow: 0 2px 10px rgba(15, 40, 35, 0.06);
+    --sidebar-width: 240px;
+
+    /* Surfaces et etats : declares en variables pour permettre
+       la bascule vers le theme sombre sans dupliquer les regles. */
+    --color-th-bg: #eef4f2;
+    --color-row-hover: #fafcfb;
+    --color-input-bg: #ffffff;
+    --color-heading-accent: #0b5c50;
+    --color-sidebar-bg: #0b5c50;
+
+    --tone-attente-bg: #fdf1da;  --tone-attente-fg: #8a5a08;
+    --tone-validee-bg: #dff3e6;  --tone-validee-fg: #1c6b3f;
+    --tone-refusee-bg: #fbe2e0;  --tone-refusee-fg: #a3241d;
+    --tone-faible-bg:  #eef2fb;  --tone-faible-fg:  #33528f;
+
+    --interaction-bg: #fdeceb;
+    --interaction-border: #f0c1bd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+a { color: var(--color-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 { font-weight: 600; margin-top: 0; }
+
+/* ---------- Layout applicatif (back-office / front-office connecte) ---------- */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--color-sidebar-bg);
+    color: #fff;
+    flex-shrink: 0;
+    padding: 20px 0;
+    transition: transform 0.25s ease;
+}
+
+.sidebar .brand {
+    padding: 0 20px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 10px;
+}
+
+.sidebar nav a {
+    display: block;
+    padding: 12px 20px;
+    color: #d9ede9;
+    font-size: 0.95rem;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar .user-box {
+    padding: 15px 20px;
+    font-size: 0.85rem;
+    color: #cfe6e0;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 10px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 24px 30px;
+    min-width: 0;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.menu-toggle {
+    display: none;
+    background: var(--color-primary);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+/* ---------- Cartes / tableaux de bord ---------- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    border-left: 4px solid var(--color-primary);
+}
+
+.stat-card .label { color: var(--color-text-muted); font-size: 0.85rem; }
+.stat-card .value { font-size: 1.8rem; font-weight: 700; margin-top: 4px; }
+.stat-card.warning { border-left-color: var(--color-warning); }
+.stat-card.danger { border-left-color: var(--color-danger); }
+
+.card {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* ---------- Tableaux ---------- */
+.table-wrap { overflow-x: auto; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+table th, table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.92rem;
+}
+
+table th {
+    background: var(--color-th-bg);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+}
+
+table tr:hover { background: var(--color-row-hover); }
+
+/* ---------- Badges de statut ---------- */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.badge-attente { background: var(--tone-attente-bg); color: var(--tone-attente-fg); }
+.badge-validee { background: var(--tone-validee-bg); color: var(--tone-validee-fg); }
+.badge-refusee { background: var(--tone-refusee-bg); color: var(--tone-refusee-fg); }
+.badge-faible { background: var(--tone-faible-bg); color: var(--tone-faible-fg); }
+.badge-moderee { background: var(--tone-attente-bg); color: var(--tone-attente-fg); }
+.badge-grave { background: var(--tone-refusee-bg); color: var(--tone-refusee-fg); }
+
+/* ---------- Formulaires ---------- */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.9rem; }
+
+input[type=text], input[type=email], input[type=password],
+input[type=number], input[type=date], input[type=tel],
+select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--color-input-bg);
+    color: var(--color-text);
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15,122,106,0.12);
+}
+
+.form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.form-row .form-group { flex: 1; min-width: 200px; }
+
+.field-error { color: var(--color-danger); font-size: 0.8rem; margin-top: 4px; }
+input.invalid, select.invalid, textarea.invalid { border-color: var(--color-danger); }
+
+/* ---------- Boutons ---------- */
+.btn {
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+.btn:hover { text-decoration: none; opacity: 0.92; }
+.btn-primary { background: var(--color-primary); color: #fff; }
+.btn-accent { background: var(--color-accent); color: #fff; }
+.btn-danger { background: var(--color-danger); color: #fff; }
+.btn-success { background: var(--color-success); color: #fff; }
+.btn-outline { background: transparent; border: 1px solid var(--color-border); color: var(--color-text); }
+.btn-sm { padding: 5px 12px; font-size: 0.8rem; }
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- Alertes ---------- */
+.alert {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+.alert-success { background: var(--tone-validee-bg); color: var(--tone-validee-fg); }
+.alert-error { background: var(--tone-refusee-bg); color: var(--tone-refusee-fg); }
+.alert-warning { background: var(--tone-attente-bg); color: var(--tone-attente-fg); }
+.alert ul { margin: 4px 0 0 18px; padding: 0; }
+
+/* ---------- Pages publiques (login / register) ---------- */
+.public-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-sidebar-bg), var(--color-primary));
+    padding: 20px;
+}
+
+.auth-card {
+    background: var(--color-surface);
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    padding: 36px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-card h1 { font-size: 1.4rem; color: var(--color-heading-accent); margin-bottom: 4px; }
+.auth-card .subtitle { color: var(--color-text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+.auth-card .btn { width: 100%; margin-top: 6px; }
+.auth-card .switch-link { text-align: center; margin-top: 16px; font-size: 0.9rem; }
+
+/* ---------- Filtres de recherche ---------- */
+.filter-bar {
+    background: var(--color-surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+/* ---------- Interaction warning box ---------- */
+.interaction-alert {
+    border: 1px solid var(--interaction-border);
+    background: var(--interaction-bg);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 16px;
+}
+.interaction-alert h3 { margin: 0 0 8px; color: var(--color-danger); font-size: 1rem; }
+.interaction-alert ul { margin: 0; padding-left: 18px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .sidebar {
+        position: fixed;
+        z-index: 50;
+        top: 0; left: 0; bottom: 0;
+        transform: translateX(-100%);
+    }
+    .sidebar.open { transform: translateX(0); }
+    .menu-toggle { display: inline-block; }
+    .main-content { padding: 18px; }
+}
+
+@media (max-width: 600px) {
+    .auth-card { padding: 24px; }
+    table th, table td { font-size: 0.82rem; padding: 8px; }
+    .stat-card .value { font-size: 1.4rem; }
+}
+
+/* ==========================================================
+   Theme sombre
+   Deux declencheurs, une seule liste de variables :
+   - par defaut le site suit la preference du systeme
+     d'exploitation (prefers-color-scheme) ;
+   - le bouton de la barre superieure ecrit ensuite un choix
+     explicite sur <html data-theme="...">, memorise dans le
+     navigateur, qui l'emporte sur la preference systeme.
+   Aucune regle de mise en page n'est dupliquee : seules les
+   valeurs de couleur changent.
+   ========================================================== */
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+
+        --color-primary: #34a894;
+        --color-primary-dark: #2b8d7c;
+        --color-accent: #4ea6e8;
+        --color-danger: #e2685c;
+        --color-warning: #d9a441;
+        --color-success: #4fb87a;
+
+        --color-bg: #0e1412;
+        --color-surface: #161d1a;
+        --color-border: #27312d;
+        --color-text: #e3eae6;
+        --color-text-muted: #94a39d;
+        --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+
+        --color-th-bg: #1c2723;
+        --color-row-hover: #1b2320;
+        --color-input-bg: #111815;
+        --color-heading-accent: #58c3ad;
+        --color-sidebar-bg: #0d2b26;
+
+        --tone-attente-bg: #3a2e14;  --tone-attente-fg: #e6b35c;
+        --tone-validee-bg: #143026;  --tone-validee-fg: #6dcf9a;
+        --tone-refusee-bg: #3a1e1b;  --tone-refusee-fg: #ef8b80;
+        --tone-faible-bg:  #1b2438;  --tone-faible-fg:  #8fb0ea;
+
+        --interaction-bg: #331d1a;
+        --interaction-border: #5c2f29;
+    }
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --color-primary: #34a894;
+    --color-primary-dark: #2b8d7c;
+    --color-accent: #4ea6e8;
+    --color-danger: #e2685c;
+    --color-warning: #d9a441;
+    --color-success: #4fb87a;
+
+    --color-bg: #0e1412;
+    --color-surface: #161d1a;
+    --color-border: #27312d;
+    --color-text: #e3eae6;
+    --color-text-muted: #94a39d;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+
+    --color-th-bg: #1c2723;
+    --color-row-hover: #1b2320;
+    --color-input-bg: #111815;
+    --color-heading-accent: #58c3ad;
+    --color-sidebar-bg: #0d2b26;
+
+    --tone-attente-bg: #3a2e14;  --tone-attente-fg: #e6b35c;
+    --tone-validee-bg: #143026;  --tone-validee-fg: #6dcf9a;
+    --tone-refusee-bg: #3a1e1b;  --tone-refusee-fg: #ef8b80;
+    --tone-faible-bg:  #1b2438;  --tone-faible-fg:  #8fb0ea;
+
+    --interaction-bg: #331d1a;
+    --interaction-border: #5c2f29;
+}
+
+/* La transition rend la bascule agreable au lieu d'un clignotement */
+body,
+.sidebar,
+.card,
+.stat-card,
+.filter-bar,
+.auth-card,
+table th,
+input, select, textarea {
+    transition: background-color 0.28s ease, color 0.28s ease, border-color 0.28s ease;
+}
+
+/* ---------- Bouton de bascule clair / sombre ---------- */
+.theme-toggle {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 8px 14px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+.theme-toggle:hover { border-color: var(--color-primary); }
+.theme-toggle .theme-icon { font-size: 1rem; line-height: 1; }
+
+/* Sur la page de connexion, le bouton flotte en haut a droite */
+.public-page .theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* ==========================================================
+   Animations d'interface
+   Discretes et courtes : elles guident le regard sans distraire.
+   Tout est desactive si l'utilisateur a demande a reduire les
+   animations dans les preferences de son systeme (accessibilite).
+   ========================================================== */
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes attention {
+    0%   { box-shadow: 0 0 0 0 rgba(209, 69, 59, 0.35); }
+    70%  { box-shadow: 0 0 0 10px rgba(209, 69, 59, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(209, 69, 59, 0); }
+}
+
+/* ---------- Entree de la page ---------- */
+.main-content > h1 {
+    animation: fadeUp 0.34s ease-out both;
+}
+
+.main-content > .card,
+.main-content > .filter-bar,
+.main-content > .stats-grid,
+.main-content > .actions,
+.main-content > .table-wrap {
+    animation: fadeUp 0.4s ease-out both;
+    animation-delay: 0.05s;
+}
+
+/* Les blocs successifs arrivent en cascade */
+.main-content > *:nth-child(3)  { animation-delay: 0.08s; }
+.main-content > *:nth-child(4)  { animation-delay: 0.12s; }
+.main-content > *:nth-child(5)  { animation-delay: 0.16s; }
+.main-content > *:nth-child(6)  { animation-delay: 0.20s; }
+
+/* ---------- Cartes de statistiques ---------- */
+.stat-card {
+    animation: fadeUp 0.38s ease-out both;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.stats-grid .stat-card:nth-child(1) { animation-delay: 0.06s; }
+.stats-grid .stat-card:nth-child(2) { animation-delay: 0.12s; }
+.stats-grid .stat-card:nth-child(3) { animation-delay: 0.18s; }
+.stats-grid .stat-card:nth-child(4) { animation-delay: 0.24s; }
+.stats-grid .stat-card:nth-child(5) { animation-delay: 0.30s; }
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 40, 35, 0.10);
+}
+
+/* ---------- Lignes de tableau ---------- */
+/* Seules les premieres lignes sont animees : au-dela, la cascade
+   deviendrait plus longue que la lecture elle-meme. */
+tbody tr { animation: fadeUp 0.3s ease-out both; }
+tbody tr:nth-child(1)  { animation-delay: 0.04s; }
+tbody tr:nth-child(2)  { animation-delay: 0.07s; }
+tbody tr:nth-child(3)  { animation-delay: 0.10s; }
+tbody tr:nth-child(4)  { animation-delay: 0.13s; }
+tbody tr:nth-child(5)  { animation-delay: 0.16s; }
+tbody tr:nth-child(6)  { animation-delay: 0.19s; }
+tbody tr:nth-child(7)  { animation-delay: 0.22s; }
+tbody tr:nth-child(8)  { animation-delay: 0.25s; }
+tbody tr:nth-child(n+9) { animation-delay: 0.28s; }
+
+table tr { transition: background 0.15s ease; }
+
+/* ---------- Messages et alertes ---------- */
+.alert {
+    animation: slideDown 0.35s ease-out both;
+}
+.interaction-alert {
+    animation: fadeUp 0.4s ease-out both, attention 1.6s ease-out 0.4s 1;
+}
+
+/* ---------- Boutons ---------- */
+.btn {
+    transition: transform 0.14s ease, box-shadow 0.14s ease, opacity 0.14s ease;
+}
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(15, 40, 35, 0.14);
+}
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+.btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ---------- Navigation laterale ---------- */
+.sidebar nav a {
+    transition: background 0.18s ease, padding-left 0.18s ease, color 0.18s ease;
+    border-left: 3px solid transparent;
+}
+.sidebar nav a:hover {
+    padding-left: 22px;
+    border-left-color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---------- Cartes et formulaires ---------- */
+.card { transition: box-shadow 0.2s ease, background-color 0.28s ease, border-color 0.28s ease; }
+.card:hover { box-shadow: 0 6px 18px rgba(15, 40, 35, 0.09); }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    transition: border-color 0.16s ease, box-shadow 0.16s ease,
+                background-color 0.28s ease, color 0.28s ease;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(15, 122, 106, 0.14);
+    outline: none;
+}
+
+.field-error { animation: slideDown 0.22s ease-out both; }
+
+/* ---------- Carte de connexion ---------- */
+.auth-card { animation: fadeUp 0.45s ease-out both; }
+
+/* ---------- Ligne de medicament ajoutee dynamiquement ---------- */
+.item-row { animation: fadeUp 0.28s ease-out both; }
+
+/* ---------- Respect des preferences d'accessibilite ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+    .btn:hover,
+    .stat-card:hover { transform: none; }
+    .sidebar nav a:hover { padding-left: 18px; }
+}
+
+
+/* ==========================================================
+   Impression et export PDF
+   Le document imprime n'est pas la page a l'ecran : il devient
+   un rapport d'entreprise, avec en-tete, pied de page et une
+   mise en forme lisible en noir et blanc comme en couleur.
+   ========================================================== */
+
+.print-header,
+.print-footer { display: none; }
+
+@media print {
+
+    /* Les navigateurs suppriment les fonds par defaut a l'impression :
+       on les force, sinon l'en-tete de tableau perdrait sa couleur. */
+    *,
+    *::before,
+    *::after {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    @page {
+        size: A4;
+        margin: 16mm 13mm 16mm;
+    }
+
+    /* ---------- Retrait de tout l'interactif ---------- */
+    .sidebar,
+    .topbar,
+    .menu-toggle,
+    .filter-bar,
+    .btn,
+    .actions,
+    .alert,
+    .no-print { display: none !important; }
+
+    .app-shell { display: block; }
+    .main-content {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: none;
+    }
+
+    body {
+        background: #fff;
+        color: #1a1a1a;
+        font-size: 9.5pt;
+        line-height: 1.45;
+    }
+
+    /* ---------- En-tete de document ---------- */
+    .print-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 16pt;
+        border-bottom: 2pt solid #0f7a6a;
+        padding-bottom: 6pt;
+        margin-bottom: 14pt;
+    }
+
+    .print-brand {
+        font-size: 13pt;
+        font-weight: 700;
+        color: #0f7a6a;
+        letter-spacing: 0.2pt;
+    }
+    .print-brand span {
+        display: block;
+        font-size: 7.5pt;
+        font-weight: 400;
+        letter-spacing: 1.2pt;
+        text-transform: uppercase;
+        color: #6a7a75;
+        margin-top: 2pt;
+    }
+
+    .print-meta {
+        text-align: right;
+        font-size: 7.5pt;
+        line-height: 1.5;
+        color: #55625e;
+    }
+    .print-meta strong { color: #1a1a1a; font-weight: 600; }
+
+    /* ---------- Titres ---------- */
+    h1 {
+        font-size: 15pt;
+        color: #12211d;
+        margin: 0 0 3pt;
+        letter-spacing: -0.2pt;
+    }
+    h2 {
+        font-size: 11pt;
+        color: #0b5c50;
+        margin: 0 0 6pt;
+        padding-bottom: 3pt;
+        border-bottom: 0.5pt solid #cdd8d4;
+    }
+    .main-content > p { font-size: 9pt; color: #4a5551; margin: 0 0 12pt; }
+
+    /* ---------- Blocs ---------- */
+    .card {
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        margin: 0 0 14pt;
+        background: #fff;
+        break-inside: auto;
+    }
+
+    .stats-grid {
+        display: flex;
+        gap: 8pt;
+        margin-bottom: 14pt;
+        break-inside: avoid;
+    }
+    .stat-card {
+        flex: 1;
+        box-shadow: none;
+        border: 0.5pt solid #cdd8d4;
+        border-left: 2.5pt solid #0f7a6a;
+        border-radius: 0;
+        padding: 6pt 8pt;
+        background: #fbfdfc;
+    }
+    .stat-card .label { font-size: 7pt; text-transform: uppercase; letter-spacing: 0.4pt; }
+    .stat-card .value { font-size: 13pt; margin-top: 1pt; }
+
+    .interaction-alert {
+        border: 0;
+        border-left: 2.5pt solid #8a1f17;
+        background: #fdf4f3;
+        border-radius: 0;
+        padding: 7pt 10pt;
+        margin-bottom: 12pt;
+        break-inside: avoid;
+    }
+    .interaction-alert h3 { font-size: 9.5pt; margin: 0 0 3pt; }
+
+    /* ---------- Tableaux ---------- */
+    .table-wrap { overflow: visible; }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 8.5pt;
+        break-inside: auto;
+    }
+
+    /* L'en-tete se repete en haut de chaque page imprimee */
+    thead { display: table-header-group; }
+    tfoot { display: table-footer-group; }
+    tr { break-inside: avoid; page-break-inside: avoid; }
+
+    table th {
+        background: #e8f2ef;
+        color: #0b5c50;
+        font-size: 7.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4pt;
+        text-align: left;
+        padding: 5pt 7pt;
+        border: 0;
+        border-bottom: 1pt solid #0f7a6a;
+    }
+
+    table td {
+        padding: 4.5pt 7pt;
+        border: 0;
+        border-bottom: 0.5pt solid #dde5e2;
+    }
+
+    tbody tr:nth-child(even) td { background: #f7faf9; }
+    table tr:hover { background: none; }
+
+    /* ---------- Badges : lisibles sans couleur d'aplat ---------- */
+    .badge {
+        background: none !important;
+        border: 0.5pt solid #8a9691;
+        border-radius: 2pt;
+        color: #1a1a1a !important;
+        font-size: 7pt;
+        font-weight: 600;
+        padding: 0.5pt 4pt;
+    }
+    .badge-refusee, .badge-grave  { border-color: #a3241d; color: #8a1f17 !important; }
+    .badge-validee                { border-color: #1c6b3f; color: #175a35 !important; }
+    .badge-attente, .badge-moderee{ border-color: #8a5a08; color: #7a4f07 !important; }
+
+    a { color: #1a1a1a; text-decoration: none; }
+
+    /* ---------- Pied de page ---------- */
+    .print-footer {
+        display: block;
+        margin-top: 16pt;
+        padding-top: 5pt;
+        border-top: 0.5pt solid #cdd8d4;
+        font-size: 7pt;
+        color: #6a7a75;
+        text-align: center;
+        letter-spacing: 0.3pt;
+    }
+}
